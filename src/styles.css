@@ -1,0 +1,245 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Figma Design Handoff Swarm — authentic Figma UI tokens (HSL).
+ * Two themes (light default + .dark override). Never hardcode hex/rgb in components.
+ * Base Figma chrome tokens govern surfaces/text/borders/system state.
+ * Agent identity brand colors (violet/blue/green/red/orange) are separate and
+ * used ONLY for agent cards, connectors, and handoff packets.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Figma system semantics */
+  --color-selection: var(--selection-blue);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  /* Agent identity accents (brand — NOT for chrome) */
+  --color-violet: var(--violet);
+  --color-blue: var(--blue);
+  --color-green: var(--green);
+  --color-red: var(--red);
+  --color-orange: var(--orange);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* ---------- Light theme (default) ---------- */
+:root {
+  --radius: 0.375rem;              /* 6px — Figma inputs/buttons/dropdowns */
+
+  /* Figma chrome tokens */
+  --window-bg:     hsl(0 0% 96.1%);   /* #F5F5F5 */
+  --panel-bg:      hsl(0 0% 100%);    /* #FFFFFF */
+  --surface-alt:   hsl(0 0% 98.0%);   /* #FAFAFA */
+  --hover-bg:      hsl(0 0% 94.1%);   /* #F0F0F0 */
+  --border-token:  hsl(0 0% 90.2%);   /* #E6E6E6 */
+  --border-strong: hsl(0 0% 85.1%);   /* #D9D9D9 */
+  --text-primary:  hsl(0 0% 11.8%);   /* #1E1E1E */
+  --text-secondary:hsl(0 0% 45.9%);   /* #757575 */
+  --text-disabled: hsl(0 0% 70.2%);   /* #B3B3B3 */
+
+  /* System state */
+  --selection-blue: hsl(204 100% 52.4%); /* #0D99FF */
+  --success:        hsl(147 78% 38.4%);  /* #14AE5C */
+  --warning:        hsl(33 100% 58%);    /* #FFA629 */
+  --error:          hsl(10 89% 54.3%);   /* #F24822 */
+
+  /* Agent identity brand */
+  --violet: hsl(266 100% 67.8%);  /* #A259FF */
+  --blue:   hsl(196 99% 55.3%);   /* #1ABCFE */
+  --green:  hsl(154 92% 42.2%);   /* #0ACF83 */
+  --red:    hsl(11 89% 53.7%);    /* #F24E1E */
+  --orange: hsl(6 100% 69.2%);    /* #FF7262 */
+
+  /* Semantic mapping — drives all existing utility classes */
+  --background: var(--window-bg);
+  --foreground: var(--text-primary);
+  --surface:    var(--panel-bg);
+  --surface-2:  var(--surface-alt);
+  --surface-3:  var(--hover-bg);
+  --hairline:        var(--border-token);
+  --hairline-strong: var(--border-strong);
+
+  --card: var(--panel-bg);
+  --card-foreground: var(--text-primary);
+  --popover: var(--surface-alt);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--selection-blue);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: var(--surface-alt);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--surface-alt);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--hover-bg);
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--error);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: var(--border-token);
+  --input: var(--border-strong);
+  --ring: var(--selection-blue);
+
+  --shadow-resting: 0 1px 2px rgba(0,0,0,.08);
+  --shadow-float: 0 4px 12px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.08);
+}
+
+/* ---------- Dark theme ---------- */
+.dark {
+  --window-bg:      hsl(0 0% 11.8%);  /* #1E1E1E */
+  --panel-bg:       hsl(0 0% 17.3%);  /* #2C2C2C */
+  --surface-alt:    hsl(0 0% 20.0%);  /* #333333 elevated / popovers */
+  --hover-bg:       hsl(0 0% 22.0%);  /* #383838 */
+  --border-token:   hsl(0 0% 26.7%);  /* #444444 */
+  --border-strong:  hsl(0 0% 32.0%);
+  --text-primary:   hsl(0 0% 100%);
+  --text-secondary: hsl(0 0% 70.2%);  /* #B3B3B3 */
+  --text-disabled:  hsl(0 0% 45.9%);  /* #757575 */
+
+  --shadow-resting: 0 1px 2px rgba(0,0,0,.35);
+  --shadow-float: 0 4px 12px rgba(0,0,0,.45), 0 2px 4px rgba(0,0,0,.35);
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body { height: 100%; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 13px;                 /* Figma base body */
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-mono { font-family: var(--font-mono); font-feature-settings: "zero", "ss01"; }
+}
+
+/* ------ Utilities ------ */
+
+@utility hairline {
+  border: 1px solid var(--color-hairline);
+}
+
+@utility panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-resting);
+}
+
+@utility panel-inset {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+}
+
+@utility shadow-float {
+  box-shadow: var(--shadow-float);
+}
+
+/* Subtle agent-identity glows (functional signaling — kept restrained) */
+@utility glow-violet { box-shadow: var(--shadow-resting), 0 0 0 1px hsl(266 100% 67.8% / 0.35), 0 0 12px -4px hsl(266 100% 67.8% / 0.35); }
+@utility glow-blue   { box-shadow: var(--shadow-resting), 0 0 0 1px hsl(196 99%  55.3% / 0.35), 0 0 12px -4px hsl(196 99%  55.3% / 0.35); }
+@utility glow-green  { box-shadow: var(--shadow-resting), 0 0 0 1px hsl(154 92%  42.2% / 0.35), 0 0 12px -4px hsl(154 92%  42.2% / 0.35); }
+@utility glow-red    { box-shadow: var(--shadow-resting), 0 0 0 1px hsl(10  89%  54.3% / 0.4),  0 0 12px -4px hsl(10  89%  54.3% / 0.4);  }
+
+/* ---- Keyframes ---- */
+
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 0 1px currentColor, 0 0 8px -4px currentColor; }
+  50%      { box-shadow: 0 0 0 1px currentColor, 0 0 16px -2px currentColor; }
+}
+@utility breathe { animation: breathe 2.4s ease-in-out infinite; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(0.85); }
+}
+@utility pulse-dot { animation: pulse-dot 1.4s ease-in-out infinite; }
+
+@keyframes orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@utility orbit-slow { animation: orbit 6s linear infinite; }
+
+@keyframes ring-pulse {
+  0%   { transform: scale(0.4); opacity: 0.9; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@utility ring-pulse { animation: ring-pulse 700ms ease-out forwards; }
+
+@keyframes slide-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@utility slide-in { animation: slide-fade-in 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@utility shimmer {
+  background: linear-gradient(90deg, var(--color-surface-2) 0%, var(--color-surface-3) 50%, var(--color-surface-2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@keyframes handoff-travel {
+  0%   { offset-distance: 0%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+@utility caret { animation: caret-blink 1s steps(1) infinite; }
+
+@keyframes healed-flash {
+  0%   { background-color: hsl(147 78% 38.4% / 0); }
+  25%  { background-color: hsl(147 78% 38.4% / 0.18); }
+  100% { background-color: hsl(147 78% 38.4% / 0); }
+}
+@utility healed-flash { animation: healed-flash 1.4s ease-out; }
