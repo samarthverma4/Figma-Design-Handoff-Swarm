@@ -1,1 +1,1 @@
-[View the PDF Document](./Swarm_Dashboard_Teardown.pdf/document.pdf)
+[View the PDF Document](./Swarm_Dashboard_Teardown.pdf)
