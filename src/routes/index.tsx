@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useRunEngine } from "@/lib/swarm/use-run-engine";
+import { useLiveRunEngine } from "@/lib/swarm/use-live-run-engine";
 import { TopBar } from "@/components/swarm/TopBar";
 import { AgentSwarm } from "@/components/swarm/AgentSwarm";
 import { BrowserView } from "@/components/swarm/BrowserView";
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Dashboard() {
-  const { state, start, replay, setMode, setSpeed } = useRunEngine();
+  const { state, start, replay, setMode, setSpeed, connected } = useLiveRunEngine();
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window === "undefined") return "dark";
     const saved = window.localStorage.getItem("fds-theme");
@@ -36,6 +36,7 @@ function Dashboard() {
         onToggleMode={setMode}
         theme={theme}
         onToggleTheme={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+        connected={connected}
       />
 
       {/* Body: 3-column grid — 24px gutter, 16px panel padding pattern */}
